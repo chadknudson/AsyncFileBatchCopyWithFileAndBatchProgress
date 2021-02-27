@@ -20,10 +20,11 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
 			return bytes;
 		}
 
-		public static async Task CopyFilesAsync(Dictionary<string, string> files, IProgress<FileBatchProgressData> progress, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task CopyFilesAsync(Dictionary<string, string> files, int bufferSize, IProgress<FileBatchProgressData> progress, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			long batchPosition = 0;
 			long batchLength = GetFileBatchLength(files.Keys.ToArray());
+			long batchFileIndex = 0;
 
 			foreach (string sourceFile in files.Keys)
 			{
@@ -31,20 +32,20 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
 
 				cancellationToken.ThrowIfCancellationRequested();
 				long sourceFileLength = new FileInfo(sourceFile).Length;
-				FileBatchProgressData progressData = new FileBatchProgressData() { BatchFileCount = files.Count, BatchFileIndex = 0,  Filename = sourceFile, BatchLength = batchLength, BatchPosition = batchPosition, FileLength = sourceFileLength, FilePosition = 0 };
+				FileBatchProgressData progressData = new FileBatchProgressData() { BatchFileCount = files.Count, BatchFileIndex = batchFileIndex++,  Filename = sourceFile, BatchLength = batchLength, BatchPosition = batchPosition, FileLength = sourceFileLength, FilePosition = 0 };
 				progress.Report(progressData);
-				await CopyFileInternalAsync(sourceFile, targetFile, progress, batchLength, batchPosition, files.Count, progressData.BatchFileIndex, cancellationToken);
+				await CopyFileInternalAsync(sourceFile, targetFile, bufferSize, progress, batchLength, batchPosition, files.Count, progressData.BatchFileIndex, cancellationToken);
 				batchPosition += sourceFileLength;
 				progressData.BatchPosition = batchPosition;
 				progressData.FilePosition = sourceFileLength;
-				progressData.BatchFileIndex++;
+				progressData.BatchFileIndex = batchFileIndex;
 				progress.Report(progressData);
 			}
 		}
 
-		private static async Task CopyFileInternalAsync(string sourceFilename, string targetFilename, IProgress<FileBatchProgressData> progress, long batchLength, long batchPosition, long batchFileCount, long batchFileIndex, CancellationToken cancellationToken = default(CancellationToken))
+		private static async Task CopyFileInternalAsync(string sourceFilename, string targetFilename, int bufferSize, IProgress<FileBatchProgressData> progress, long batchLength, long batchPosition, long batchFileCount, long batchFileIndex, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			int bufferSize = 81920; // Default buffer size used by .NET for file copy. use a smaller number like 8192 if you want to see your file transferred in a lot smaller chunks to better visualize the progress bar at work
+//			int bufferSize = 81920; // Default buffer size used by .NET for file copy. Use a smaller number like 8192 if you want to transfer your files in smaller chunks to better visualize the progress bar at work
 			byte[] buffer = new byte[bufferSize];
 			int bytesRead;
 

@@ -35,6 +35,8 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
             this.SourceFilesButton = new System.Windows.Forms.Button();
             this.CopyButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.BufferSizeLabel = new System.Windows.Forms.Label();
+            this.BufferSizeComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // TargetFolderLabel
@@ -81,7 +83,7 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
             // 
             this.CopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CopyButton.Enabled = false;
-            this.CopyButton.Location = new System.Drawing.Point(363, 125);
+            this.CopyButton.Location = new System.Drawing.Point(363, 179);
             this.CopyButton.Name = "CopyButton";
             this.CopyButton.Size = new System.Drawing.Size(75, 23);
             this.CopyButton.TabIndex = 4;
@@ -93,7 +95,7 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
             // CancelButton
             // 
             this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.Location = new System.Drawing.Point(445, 125);
+            this.CancelButton.Location = new System.Drawing.Point(445, 179);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 5;
@@ -101,19 +103,43 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // Form1
+            // BufferSizeLabel
+            // 
+            this.BufferSizeLabel.AutoSize = true;
+            this.BufferSizeLabel.Location = new System.Drawing.Point(13, 108);
+            this.BufferSizeLabel.Name = "BufferSizeLabel";
+            this.BufferSizeLabel.Size = new System.Drawing.Size(289, 15);
+            this.BufferSizeLabel.TabIndex = 6;
+            this.BufferSizeLabel.Text = "BufferSize - 81920 is the default use internally for .NET";
+            // 
+            // BufferSizeComboBox
+            // 
+            this.BufferSizeComboBox.FormattingEnabled = true;
+            this.BufferSizeComboBox.Items.AddRange(new object[] {
+            "8192",
+            "81920"});
+            this.BufferSizeComboBox.Location = new System.Drawing.Point(13, 127);
+            this.BufferSizeComboBox.Name = "BufferSizeComboBox";
+            this.BufferSizeComboBox.Size = new System.Drawing.Size(218, 23);
+            this.BufferSizeComboBox.TabIndex = 7;
+            this.BufferSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // AsynchronousBatchFileCopy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 160);
+            this.ClientSize = new System.Drawing.Size(532, 214);
+            this.Controls.Add(this.BufferSizeComboBox);
+            this.Controls.Add(this.BufferSizeLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.CopyButton);
             this.Controls.Add(this.SourceFilesButton);
             this.Controls.Add(this.BrowseForTargetFolder);
             this.Controls.Add(this.TargetFolderTextBox);
             this.Controls.Add(this.TargetFolderLabel);
-            this.Name = "Form1";
+            this.Name = "AsynchronousBatchFileCopy";
             this.Text = "Asynchronous File Copy with Item and Batch Progress";
+            this.Load += new System.EventHandler(this.AsynchronousBatchFileCopy_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,6 +153,8 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
         private System.Windows.Forms.Button SourceFilesButton;
         private System.Windows.Forms.Button CopyButton;
         private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Label BufferSizeLabel;
+        private System.Windows.Forms.ComboBox BufferSizeComboBox;
     }
 }
 
