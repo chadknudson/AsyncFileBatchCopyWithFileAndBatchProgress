@@ -1,6 +1,6 @@
 ﻿namespace AsyncFileBatchCopyWithFileAndBatchProgress
 {
-	partial class StatusDialog
+	partial class BatchProgressDialog
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatusDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BatchProgressDialog));
             this.ItemProgressBar = new System.Windows.Forms.ProgressBar();
             this.CurrentItemLabel = new System.Windows.Forms.Label();
             this.OverallProgressLabel = new System.Windows.Forms.Label();
@@ -84,7 +84,7 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // StatusDialog
+            // BatchProgressDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -95,7 +95,7 @@
             this.Controls.Add(this.CurrentItemLabel);
             this.Controls.Add(this.ItemProgressBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "StatusDialog";
+            this.Name = "BatchProgressDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Norse Technologies";
             this.Load += new System.EventHandler(this.DialogStatus_Load);

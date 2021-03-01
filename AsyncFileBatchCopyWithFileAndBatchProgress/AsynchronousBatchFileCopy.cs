@@ -11,7 +11,7 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
     {
         public Dictionary<string, string> sourceFilesToDestinationMap = new Dictionary<string, string>();
 
-        private StatusDialog status = new StatusDialog();
+        private BatchProgressDialog status = new BatchProgressDialog();
 
         public AsynchronousBatchFileCopy()
         {
@@ -67,7 +67,7 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
 
         public async Task CopyFiles()
         {
-            status = new StatusDialog();
+            status = new BatchProgressDialog();
 
             status.OverallMaximum = FileIO.GetFileBatchLength(sourceFilesToDestinationMap.Keys.ToArray());
 

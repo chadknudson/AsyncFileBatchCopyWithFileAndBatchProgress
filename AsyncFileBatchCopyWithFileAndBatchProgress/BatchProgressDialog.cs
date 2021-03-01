@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace AsyncFileBatchCopyWithFileAndBatchProgress
 {
-    public partial class StatusDialog : Form
+    public partial class BatchProgressDialog : Form
     {
         public long ItemMaximum { get; set; }
 
@@ -20,7 +20,7 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
             get { return source.Token; }
         }
 
-        public StatusDialog()
+        public BatchProgressDialog()
         {
             InitializeComponent();
             ItemProgressBar.Minimum = 0;
@@ -29,7 +29,7 @@ namespace AsyncFileBatchCopyWithFileAndBatchProgress
             OverallProgressBar.Maximum = 100;
         }
 
-        public StatusDialog(int max)
+        public BatchProgressDialog(int max)
         {
             ItemProgressBar.Maximum = max;
         }
